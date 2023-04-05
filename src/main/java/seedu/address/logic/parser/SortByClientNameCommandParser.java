@@ -25,6 +25,9 @@ public class SortByClientNameCommandParser implements Parser<SortByClientNameCom
             }
             return new SortByClientNameCommand(true);
         } catch (NumberFormatException ive) {
+            if (ive.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw new ParseException(ive.getMessage(), ive);
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortByClientNameCommand.MESSAGE_USAGE), ive);
         }

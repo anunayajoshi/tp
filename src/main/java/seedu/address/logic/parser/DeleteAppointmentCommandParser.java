@@ -21,6 +21,9 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
             Index index = ParserUtil.parseIndex(args);
             return new DeleteAppointmentCommand(index);
         } catch (ParseException pe) {
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE), pe);
         }

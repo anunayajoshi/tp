@@ -21,6 +21,9 @@ public class SortByClientPhoneCommandParser implements Parser<SortByClientPhoneC
             }
             return new SortByClientPhoneCommand(true);
         } catch (NumberFormatException ive) {
+            if (ive.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw new ParseException(ive.getMessage(), ive);
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortByClientPhoneCommand.MESSAGE_USAGE), ive);
         }

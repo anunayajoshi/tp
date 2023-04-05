@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_POLICY;
 
@@ -23,7 +24,7 @@ class DeletePolicyCommandParserTest {
     @Test
     void parse_invalidClientIndex_throwsIllegalValueException() {
         String userInput = "a pi/1";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePolicyCommand.MESSAGE_USAGE);
+        String expectedMessage = MESSAGE_INVALID_INDEX;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

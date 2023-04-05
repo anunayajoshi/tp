@@ -22,9 +22,11 @@ public class SelectCommandParser implements Parser<SelectCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new SelectCommand(index);
         } catch (ParseException pe) {
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw pe;
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }

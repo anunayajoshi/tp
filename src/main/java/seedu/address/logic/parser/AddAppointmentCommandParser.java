@@ -33,6 +33,9 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
+            if (ive.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw new ParseException(ive.getMessage(), ive);
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE), ive);
         }

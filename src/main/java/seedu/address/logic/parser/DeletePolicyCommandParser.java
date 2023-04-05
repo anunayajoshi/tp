@@ -34,15 +34,17 @@ public class DeletePolicyCommandParser implements Parser<DeletePolicyCommand> {
         }
 
         Index index;
+        Index policyIndex;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            policyIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_POLICY_INDEX).get());
         } catch (IllegalValueException ive) {
+            if (ive.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw new ParseException(ive.getMessage(), ive);
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePolicyCommand.MESSAGE_USAGE), ive);
         }
-
-        Index policyIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_POLICY_INDEX).get());
-
         return new DeletePolicyCommand(index, policyIndex);
     }
 

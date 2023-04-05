@@ -34,13 +34,17 @@ public class EditPolicyCommandParser implements Parser<EditPolicyCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPolicyCommand.MESSAGE_USAGE));
         }
         Index index;
+        Index policyIndex;
         try {
             index = ParserUtil.parseIndex(argMultiMap.getPreamble());
+            policyIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_POLICY_INDEX).get());
         } catch (ParseException e) {
+            if (e.getMessage().equals(ParserUtil.MESSAGE_INVALID_INDEX)) {
+                throw e;
+            }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPolicyCommand.MESSAGE_USAGE));
         }
 
-        Index policyIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_POLICY_INDEX).get());
 
         EditPolicyCommand.EditPolicyDescriptor editPolicyDescriptor = new EditPolicyCommand.EditPolicyDescriptor();
         if (argMultiMap.getValue(PREFIX_POLICY_NAME).isPresent()) {

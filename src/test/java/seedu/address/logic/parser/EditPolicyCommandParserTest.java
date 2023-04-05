@@ -50,9 +50,9 @@ class EditPolicyCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        assertParseFailure(parser, "-5 pi/1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5 pi/1", MESSAGE_INVALID_INDEX);
 
-        assertParseFailure(parser, "0 pi/1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0 pi/1", MESSAGE_INVALID_INDEX);
 
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
