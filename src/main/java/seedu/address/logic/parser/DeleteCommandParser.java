@@ -20,10 +20,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteCommand(index);
+            // catch the parse exception and the message, and return the message
         } catch (ParseException pe) {
+            // throw the exception with the message if message is "Index is too large"
+            if (pe.getMessage().equals(ParserUtil.MESSAGE_LARGE_INDEX)) {
+                throw pe;
+            }
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
+
     }
 
 }
